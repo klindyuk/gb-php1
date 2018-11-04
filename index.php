@@ -1,33 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-	<meta charset="UTF-8">
-	<title>Document</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/style.css">
+    <title>ДЗ 4</title>
 </head>
 <body>
-	<?php
-	// Задание 3
-    $a = 5;
-    $b = '05';
-    var_dump($a == $b);         // Почему true? - строка приведена к целому числу, 5 == 5
-    var_dump((int)'012345');     // Почему 12345? - аналогично
-    var_dump((float)123.0 === (int)123.0); // Почему false? - разный тип данных
-    var_dump((int)0 === (int)'hello, world'); // Почему true? - строка, не содержащая цифр, приведена к целому как 0
-	
-	?>
-    <h2>Задание 5. Используя только две переменные, поменяйте их значение местами. Например, если a = 1, b = 2, надо, чтобы получилось: b = 1, a = 2. Дополнительные переменные использовать нельзя.</h2>
-    <?
-    // Задание 5
-    $a = 5;
-    $b = 7;
-    var_dump($a);
-    var_dump($b);
-    echo "<br>";
-    $a += $b;
-    $b = $a - $b;
-    $a -= $b;
-    var_dump($a);
-    var_dump($b);
-    ?>
+    <div class="container">
+        <h2>Бородино-2018. Москва за нами</h2>
+        <?php
+            $imagesList = scandir("gallery");
+            $gallery = "<div class=\"gallery\">";
+            foreach ($imagesList as $image) {
+                if ($image == "." || $image == "..") continue;
+                $gallery .= "<div class=\"card\"><a href=\"gallery/$image\" target=\"_blank\"><img src=\"gallery_mini/$image\" alt=\"\"></a><a href=\"gallery/$image\" class=\"capture\" target=\"_blank\">$image</a></div>";
+            }
+            $gallery .= "</div>";
+            echo $gallery;
+        ?>
+
+    </div>
 </body>
 </html>

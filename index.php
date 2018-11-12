@@ -1,33 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Document</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>hw6</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
-	<?php
-	// Задание 3
-    $a = 5;
-    $b = '05';
-    var_dump($a == $b);         // Почему true? - строка приведена к целому числу, 5 == 5
-    var_dump((int)'012345');     // Почему 12345? - аналогично
-    var_dump((float)123.0 === (int)123.0); // Почему false? - разный тип данных
-    var_dump((int)0 === (int)'hello, world'); // Почему true? - строка, не содержащая цифр, приведена к целому как 0
-	
-	?>
-    <h2>Задание 5. Используя только две переменные, поменяйте их значение местами. Например, если a = 1, b = 2, надо, чтобы получилось: b = 1, a = 2. Дополнительные переменные использовать нельзя.</h2>
-    <?
-    // Задание 5
-    $a = 5;
-    $b = 7;
-    var_dump($a);
-    var_dump($b);
-    echo "<br>";
-    $a += $b;
-    $b = $a - $b;
-    $a -= $b;
-    var_dump($a);
-    var_dump($b);
-    ?>
+    <form action="" name="calc1" method="POST">
+        <input type="number" name="operand1" id="operand1" value=0>
+        <select name="operation" id="operation">
+            <option value="+">+</option>
+            <option value="-">-</option>
+            <option value="*">*</option>
+            <option value="/">/</option>
+        </select>
+        <input type="number" name="operand2" id="operand2" value=0>
+        <button id="calculate1">=</button>
+        <input type="text" name="res" id="res" disabled>
+        <p>
+            <button class="operations">+</button>
+            <button class="operations">-</button>
+            <button class="operations">*</button>
+            <button class="operations">/</button>
+        </p>
+    </form>
+    <script>
+        $(document).ready(function() {
+            $('#calculate1').click(function() {
+                $.ajax ({
+                    url: "calc1.php",
+                    data: {
+                        operand1: $('#operand1').val(),
+                        operand2: $('#operand2').val(),
+                        operation: $('#operation').val()
+                    },
+                    success: function(result) {
+                        $('#res').val(result);
+                    }
+                });
+                return false;
+                
+            });
+            
+            $('.operations').click(function(e) {
+                $.ajax ({
+                    url: "calc1.php",
+                    data: {
+                        operand1: $('#operand1').val(),
+                        operand2: $('#operand2').val(),
+                        operation: e.target.innerText
+                    },
+                    success: function(result) {
+                        $('#res').val(result);
+                    }
+                });
+                return false;
+            });
+        });
+    </script>
 </body>
 </html>
